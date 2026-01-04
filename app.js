@@ -5,13 +5,13 @@ console.log("EXERCISE 1:\n==========\n");
 
 function printOdds(count){
         if (count > 0){
-            for(let i = 0; i < count; i++){
+            for(let i = 0; i <= count; i++){
                 if(i % 2 != 0){
                     console.log(i);
                 }
             }
         }
-        else{
+        else {
             for(let i = count; i < 0; i++){
                 if(i % 2 != 0){
                     console.log(i);
@@ -21,6 +21,7 @@ function printOdds(count){
     }
     
     printOdds(10);
+    console.log(`----`)
     printOdds(-10);
 
 // Exercise 2 Section
@@ -30,17 +31,70 @@ console.log("EXERCISE 2:\n==========\n");
 function checkAge(userName,age){
 
     let aboveSixteen = `Congrats ${userName}, you can drive!`;
+    let aboveSixteenNoName = `Congrats, you can drive!`;
     let belowSixteen = `Sorry ${userName}, you have to wait until you are 16.`;
+    let belowSixteenNoName = `Sorry, you have to wait until you are 16.`;
+    let nameNoAge = `Sorry ${userName}, you need to input an age.`;
+    let nothing = `You did not provide a name or an age, try again.`;
 
-    if (age >= 16){
+if(userName != null && age != null){
+    if(age >= 16){
         console.log(aboveSixteen);
     }
-    else{
+    if(age < 16){
         console.log(belowSixteen);
     }
 }
+if(userName === null && age != null){
+    if(age >= 16){
+        console.log(aboveSixteenNoName);
+    }
+    if(age < 16){
+        console.log(belowSixteenNoName);
+    }
+}
+if(userName != null && age === null){
+    console.log(nameNoAge);
+}
+if(userName === null && age === null){
+    console.log(nothing);
+}
+
+    // if (userName === undefined){
+    //     if (age >= 16){
+    //         console.log(aboveSixteenNoName);
+    //     }
+    //     if(age < 16){ 
+    //         console.log(belowSixteenNoName);
+    //     }
+    //     else{
+    //         console.log(nothing);
+    //     }
+    // }
+    // if(userName != undefined){
+    //     if (age >= 16){
+    //         console.log(aboveSixteen);
+    //     }
+    //     if(age < 16){ 
+    //         console.log(belowSixteen);
+    //     }
+    //     if(age === undefined){
+    //         console.log(nameNoAge);
+    //     }
+    // }
+}
     checkAge(`Joe`,12);
+    console.log(`----`)
     checkAge(`jay`,20);
+    console.log(`----`)
+    checkAge(null, 10);
+    console.log(`----`)
+    checkAge(null, 20);
+    console.log(`----`)
+    checkAge(`Sam`, null);
+    console.log(`----`)
+    checkAge(null, null);
+
 
 // Exercise 3 Section
 console.log("EXERCISE 3:\n==========\n");
@@ -71,19 +125,25 @@ function whichQuadrant(x,y){
 }
 
 whichQuadrant(1,0);
+console.log(`----`)
 whichQuadrant(0,1);
+console.log(`----`)
 whichQuadrant(-1,1);
+console.log(`----`)
 whichQuadrant(1,-1);
+console.log(`----`)
 whichQuadrant(1,1);
+console.log(`----`)
 whichQuadrant(-1,-1);
+console.log(`----`)
 whichQuadrant(0,0);
 
 // Exercise 4 Section
 console.log("EXERCISE 4:\n==========\n");
 
 function typeOfTriangle(a,b,c){
-    let numbers = [a,b,c];
-    let sorted = numbers.sort((x,y) => x-y);
+    const numbers = [a,b,c];
+    let sorted = numbers.sort((a,b) => a-b);
 
     let x = sorted[0];
     let y = sorted[1];
@@ -107,13 +167,21 @@ function typeOfTriangle(a,b,c){
 }
 
 typeOfTriangle(1,2,3)
+console.log(`----`)
 typeOfTriangle(3,3,3)
+console.log(`----`)
 typeOfTriangle(4,5,6)
+console.log(`----`)
 typeOfTriangle(2,3,3)
+console.log(`----`)
 typeOfTriangle(5,4,9)
+console.log(`----`)
 typeOfTriangle(0,1,3)
+console.log(`----`)
 typeOfTriangle(0,0,3)
+console.log(`----`)
 typeOfTriangle(0,0,0)
+console.log(`----`)
 
 // Exercise 5 Section
 console.log("EXERCISE 5:\n==========\n");
@@ -135,24 +203,38 @@ let planDailyRound = Math.round(planDailyAverage * 100)/100;
 let userRound = Math.round(userDailyAverage * 100)/100;
 let difference = usage - planMaxRound;
 let estimate = userRound * 30;
-
+let daysLeft = 30 - day;
+let dataLeft = planLimit - usage;
+let newAve = dataLeft/daysLeft;
 
 if(planDailyAverage > userDailyAverage){
     console.log(`As of the ${day} day of 30, you have used ${usage}gb of data out of ${planLimit}gb.`)
-    console.log(`At day ${day}, your plans average should total to ${planMaxRound}gb. This is ${-difference}gb under.`)
+    console.log(`At day ${day}, your plans average should total to ${planMaxRound}gb. This is ${-Math.round(difference * 100)/100}gb under.`)
     console.log(`your daily average usage is ${userRound}gb.`)
     console.log(`You are under the max daily average of ${planDailyRound}gb`)
     console.log(`At this rate you will use ${estimate}gb by the end of the 30 days.`)
     console.log(`You can downgrade your plan to avoid wasting data.`)
+    console.log(`Consider using ${Math.round(newAve*100)/100}gb a day for the rest of the month.`)
+    console.log(`you have ${daysLeft} days left of the month.`)
+    console.log(`you have ${dataLeft}gb data left of this month.`)
 }
 
 if(planDailyAverage < userDailyAverage){
+    if(usage > planLimit){
+        console.log(`You have exceeded your usage for the month.`)
+        console.log(`You you will need to upgrade to continue using data.`)
+    }
+    else{
     console.log(`As of the ${day} day of 30, you have used ${usage}gb of data out of ${planLimit}gb.`)
     console.log(`At day ${day}, your plans average should total to ${planMaxRound}gb, This is ${difference}gb over.`)
     console.log(`your daily average usage is ${userRound}gb.`)
     console.log(`You are over the max daily average of ${planDailyRound}gb.`)
     console.log(`At this rate you will use ${estimate}gb by the end of the 30 days.`)
     console.log(`You should upgrade your plan to avoid running out of data.`)
+    console.log(`Consider using ${Math.round(newAve*100)/100}gb a day for the rest of the month.`)
+    console.log(`you have ${daysLeft} days left of the month.`)
+    console.log(`you have ${dataLeft}gb data left of this month.`)
+    }
 }
 
 if(planDailyAverage == userDailyAverage){
@@ -162,6 +244,9 @@ if(planDailyAverage == userDailyAverage){
     console.log(`You are at the max daily average of ${planDailyRound}gb.`)
     console.log(`At this rate you will use ${estimate}gb by the end of the 30 days.`)
     console.log(`consider upgrading plan to avoid going over.`)
+    console.log(`Consider using ${Math.round(newAve*100)/100}gb a day for the rest of the month.`)
+    console.log(`you have ${daysLeft} days left of the month.`)
+    console.log(`you have ${dataLeft}gb data left of this month.`)
 }
 }
 
@@ -172,4 +257,7 @@ dataPlanStatus(100,15,50);
 console.log(`----------`)
 
 dataPlanStatus(100,17,80);
+console.log(`----------`)
+
+dataPlanStatus(100,17,200);
 console.log(`----------`)
